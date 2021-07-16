@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const authRouter = require('./app/auth/router');
 const productRouter = require('./app/products/router');
-
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
+const categoryRouter = require('./app/categories/router');
+const tagRouter = require('./app/tag/router');
+const { decodeToken } = require('./app/auth/middleware');
+const regionRouter = require('./app/region/router');
 
 var app = express();
 
@@ -19,9 +21,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(decodeToken());
 
-// (2) gunakan product router
+// (2) gunakan router
+app.use('/auth', authRouter);
 app.use('/api', productRouter);
+app.use('/api', categoryRouter);
+app.use('/api', tagRouter);
+app.use('/api', regionRouter);
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
