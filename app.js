@@ -3,12 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 const authRouter = require('./app/auth/router');
 const productRouter = require('./app/products/router');
 const categoryRouter = require('./app/categories/router');
 const tagRouter = require('./app/tag/router');
 const { decodeToken } = require('./app/auth/middleware');
 const regionRouter = require('./app/region/router');
+const deliveryRouter = require('./app/delivery-address/router');
+const cartRouter = require('./app/cart-item/router');
+const orderRouter = require('./app/order/router');
+const invoiceRouter = require('./app/invoice/router');
 
 var app = express();
 
@@ -21,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 app.use(decodeToken());
 
 // (2) gunakan router
@@ -29,6 +35,10 @@ app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', tagRouter);
 app.use('/api', regionRouter);
+app.use('/api', deliveryRouter);
+app.use('/api', cartRouter);
+app.use('/api', orderRouter);
+app.use('/api', invoiceRouter);
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
