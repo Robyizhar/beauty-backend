@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const Product = require('./model');
-const Category = require('../categories/model');
-const Tag = require('../tag/model');
 const config = require('../config');
 const { policyFor } = require('../policy');
+
+const Product = require('./model'); //other models
+const Category = require('../categories/model'); //other models
+const Tag = require('../tag/model'); //other models
 
 async function index(req, res, next){
     try{

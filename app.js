@@ -39,6 +39,7 @@ app.use('/api', deliveryRouter);
 app.use('/api', cartRouter);
 app.use('/api', orderRouter);
 app.use('/api', invoiceRouter);
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);

@@ -18,10 +18,10 @@ async function register(req, res, next){
     }catch{
         // (1) cek kemungkinan kesalahan terkait validasi
         if(err && err.name === 'ValidationError'){
-        return res.json({
-            error: 1,
-            message: err.message,
-            fields: err.errors
+            return res.json({
+                error: 1,
+                message: err.message,
+                fields: err.errors
             });
         }
         // (2) error lainnya
@@ -29,7 +29,7 @@ async function register(req, res, next){
     }
 }
 
-async function login(){
+async function login(req, res, next){
     passport.authenticate('local', async function(err, user){
         
         if(!user) return res.json({error: 1, message: 'email or password incorrect'})
